@@ -10,4 +10,8 @@ public interface CustomerDAO {
 	
 	public void saveCustomer(Customer theCustomer);
 
+	public void updateCustomer(Customer theCustomer);
+
+	public Customer getCustomer(int theId);
+
 }

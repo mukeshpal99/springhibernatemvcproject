@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,6 +62,24 @@ public class CustomerController {
 		
 		// populate customer details to form
 		return "customer-form";
+	}
+	
+	@GetMapping("/deleteCustomer")
+	public String deleteCustomer(@RequestParam("customerId") int theId){
+		//delete the customer from DB using id
+		customerService.deleteCustomer(theId);
+		
+		return "redirect:/customer/list";
+	}
+	
+	@PostMapping("/searchCustomer")
+	public String searchCustomer(@RequestParam("theSearchName") String searchName, Model theModel){
+		
+		// saerch customer from using customer search service
+		
+		List<Customer> theCustomers = customerService.searchCustomer(searchName);
+		theModel.addAttribute("customers", theCustomers);
+		return "list-customers";
 	}
 
 }
